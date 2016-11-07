@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 
 import { fetchUser } from "../../actions/userActions"
 import { fetchTweets } from "../../actions/tweetsActions"
+import UserInput from '../UserInput';
 
 const { func, object, array } = PropTypes;
 
@@ -59,11 +60,15 @@ export default class Layout extends Component {
           <button onClick={this.callForTweets}> Load them tweets! </button>
           {toRenderTweets ? <ul>{this.renderTweets()}</ul> : ""}
         </div>
-        <div>
+        <div className='user-container'>
             <ul>
               <li>Name - Drink</li>
               {this.renderUsers()}
             </ul>
+        </div>
+        <br />
+        <div className='user-input'>
+          <UserInput />
         </div>
       </div>
     );

@@ -11,3 +11,19 @@ export function fetchUser() {
     });
   };
 }
+
+export function postUser(params) {
+  console.log(params);
+  return (dispatch) => {
+    axios.post(`http://rest.learncode.academy/api/learncode/friends`, {
+      name: params.name,
+      age: params.age,
+    })
+    .then((response) => {
+      dispatch({ type: 'FETCH_FRIENDS_FULFILLED', payload: response.data });
+    })
+    .catch((err) => {
+      dispatch({ type: 'FETCH_FRIENDS_REJECTED', payload: err });
+    });
+  };
+}
