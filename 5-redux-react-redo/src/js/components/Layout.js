@@ -4,25 +4,33 @@ import { connect } from "react-redux"
 // import { fetchUser } from "../actions/userActions"
 import { fetchTweets } from "../actions/tweetsActions"
 
-const { func, object } = PropTypes;
+const { func, object, array } = PropTypes;
 
 @connect(state => {
   return {
-    user: state.user,
+    tweetData: state.tweets.tweetData,
   }
 }, {fetchTweets})
 export default class Layout extends Component {
 
   static propTypes = {
-    user: object,
+    tweetData: object || array,
     fetchTweets: func,
   }
 
   componentWillMount() {
-    this.props.fetchTweets();
+    const { fetchTweets } = this.props;
+    fetchTweets();
+  }
+
+  renderTweets() {
+    const { tweetData } = this.props;
+    return tweetData.map(child => {
+        return(<div key={child.id}>{child.text}</div>);
+    });
   }
 
   render() {
-    return(<div>CHECKMATE</div>);
+    return(<div>{this.renderTweets()}</div>);
   }
 }
