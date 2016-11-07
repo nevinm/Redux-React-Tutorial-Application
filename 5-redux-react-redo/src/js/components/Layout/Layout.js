@@ -1,26 +1,31 @@
 import React, {Component, PropTypes } from "react"
 import { connect } from "react-redux"
 
-// import { fetchUser } from "../actions/userActions"
+import { fetchUser } from "../../actions/userActions"
 import { fetchTweets } from "../../actions/tweetsActions"
-// import styles from './Layout.css';
 
 const { func, object, array } = PropTypes;
 
 @connect(state => {
   return {
     tweetData: state.tweets.tweetData,
+    usersData: state.users.usersData,
   }
-}, {fetchTweets})
+}, {fetchTweets, fetchUser})
 export default class Layout extends Component {
 
   static propTypes = {
     tweetData: object || array,
     fetchTweets: func,
+    fetchUser: func,
   }
 
   state = {
     toRenderTweets: false,
+  }
+
+  componentWillMount() {
+    this.props.fetchUser();
   }
 
   callForTweets = () => {
@@ -37,12 +42,29 @@ export default class Layout extends Component {
     });
   }
 
+  renderUsers() {
+    const { usersData } = this.props;
+
+    return usersData && usersData.map(child => {
+      const name = child.name ? (<li key={child.id}>{child.name} - {child.drink}</li>) : "";
+      return name;
+    });
+  }
+
   render() {
     const { toRenderTweets } = this.state;
     return(
-      <div>
-        <button onClick={this.callForTweets}> Load them tweets! </button>
-        {toRenderTweets ? <ul>{this.renderTweets()}</ul> : ""}
+      <div className='parent-container'>
+        <div className='tweet-container'>
+          <button onClick={this.callForTweets}> Load them tweets! </button>
+          {toRenderTweets ? <ul>{this.renderTweets()}</ul> : ""}
+        </div>
+        <div>
+            <ul>
+              <li>Name - Drink</li>
+              {this.renderUsers()}
+            </ul>
+        </div>
       </div>
     );
   }
