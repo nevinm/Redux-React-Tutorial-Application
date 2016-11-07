@@ -1,7 +1,7 @@
 import { combineReducers }  from "redux";
 
-import tweets from "./tweetsReducer";
+import tweetsReducer from "./tweetsReducer";
 
 export default combineReducers({
-  tweets,
+  tweets: tweetsReducer,
 });
