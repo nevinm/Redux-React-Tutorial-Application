@@ -22,9 +22,8 @@ export default class UserInput extends Component {
     age: 0,
   }
 
-  handleChange(event) {
-    // TODO: Correct this function in the next commit.
-    this.setState({name: event.target.value, age: event.target.value});
+  handleChange = (event) => {
+    this.setState({[event.target.name]: event.target.value});
   }
 
   submitForm() {
@@ -34,15 +33,34 @@ export default class UserInput extends Component {
 
   render() {
     return (
-      <div className='user-input-container'>
-        <form>
-          <input value={this.state.name} onChange={this.handleChange} placeholder='Type your name here!' type='text' />
-          <br />
-          <input value={this.state.age} placeholder='Type your age here!' type='number' />
-          <br />
-          <button type='submit' onClick={this.submitForm}>Add</button>
-        </form>
-      </div>
+      <form onSubmit={this.submitForm}>
+        <div className="form-group">
+          <label for="name-input">Email address</label>
+          <input
+            value={this.state.name}
+            onChange={this.handleChange}
+            name='name'
+            id='name-input'
+            type="text"
+            className="form-control"
+            placeholder='Enter your name'
+          />
+          <small className="form-text text-muted">We'll never share your name with anyone else.</small>
+        </div>
+        <div className="form-group">
+          <label for="age-input">Age</label>
+          <input
+            value={this.state.age}
+            onChange={this.handleChange}
+            type="number"
+            className="form-control"
+            name='age'
+            id="age-input"
+            placeholder="Age"
+           />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     );
   }
 }
