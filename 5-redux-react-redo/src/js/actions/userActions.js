@@ -19,7 +19,6 @@ export function postUser(params, callback) {
       age: params.age,
     })
     .then((response) => {
-      callback();
       dispatch({ type: 'FETCH_FRIENDS_FULFILLED', payload: response.data });
     })
     .catch((err) => {
