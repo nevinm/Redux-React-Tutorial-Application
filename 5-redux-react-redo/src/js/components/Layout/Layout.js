@@ -47,7 +47,7 @@ export default class Layout extends Component {
     const { usersData } = this.props;
 
     return usersData && usersData.map(child => {
-      const name = child.name ? (<li key={child.id}>{child.name} - {child.drink}</li>) : "";
+      const name = child.name ? (<li key={child.id}>{child.name} - {child.age}</li>) : "";
       return name;
     });
   }
@@ -56,20 +56,21 @@ export default class Layout extends Component {
     const { toRenderTweets } = this.state;
     return(
       <div className='parent-container'>
+        <div className='user-input'>
+          <UserInput />
+        </div>
+        <br />
         <div className='tweet-container'>
           <button onClick={this.callForTweets}> Load them tweets! </button>
           {toRenderTweets ? <ul>{this.renderTweets()}</ul> : ""}
         </div>
         <div className='user-container'>
             <ul>
-              <li>Name - Drink</li>
+              <li>Name - Age</li>
               {this.renderUsers()}
             </ul>
         </div>
         <br />
-        <div className='user-input'>
-          <UserInput />
-        </div>
       </div>
     );
   }
