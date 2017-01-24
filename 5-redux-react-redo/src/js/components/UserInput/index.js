@@ -29,10 +29,7 @@ export default class UserInput extends Component {
   submitForm = (event) => {
     event.preventDefault();
     const { name, age, } = this.state;
-    this.props.postUser({name, age})
-      .then((data) => {
-        console.log(data);
-    });
+    this.props.postUser({name, age}, this.props.fetchUser)
   }
 
   render() {
